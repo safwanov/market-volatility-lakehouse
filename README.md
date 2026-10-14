@@ -24,7 +24,7 @@ flowchart LR
 | Gold | DuckDB window functions | Rolling 5d/21d annualised vol, range, vol ratio, forward 5d target |
 | Quality | SQL assertions | Uniqueness, nulls, price sanity, outlier returns, freshness. Failure halts the DAG |
 | Serving | scikit-learn | Chronological split with leakage gap, Ridge + Random Forest ensemble, Inverse Volatility Weighting |
-| Orchestration | Airflow (Docker) | `bronze >> silver_gold >> quality_gate >> serve`, retries, daily schedule |
+| Orchestration | Airflow (Docker) | `bronze >> silver_gold >> quality_gate >> serve`, 2 retries with backoff, weekdays at 22:00 UTC |
 | CI | GitHub Actions + ruff | Lint and compile on every push |
 
 ## Quickstart
