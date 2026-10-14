@@ -1,6 +1,8 @@
 """Quality gate: every check is a SQL query that must return 0. Any failure stops the DAG."""
 import sys
+
 import duckdb
+
 from pipelines.config import DB
 
 CHECKS = {

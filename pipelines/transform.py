@@ -1,5 +1,6 @@
 """Silver + Gold layers: plain SQL files executed in order by DuckDB."""
 import duckdb
+
 from pipelines.config import DB, ROOT
 
 
