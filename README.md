@@ -75,4 +75,4 @@ Sample output of `make run` (`data/serving.json`), test set is the last 20% of h
 
 ## Author
 
-**safwanov (sazerov)**, Data Engineering and ML.
+**safwanov**, Data Engineering and ML.
