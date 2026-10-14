@@ -2,7 +2,7 @@
 
 > A production-style **data engineering pipeline** that ingests market data, models it through a medallion architecture, validates it with quality gates, and serves volatility forecasts and portfolio weights, orchestrated by Airflow.
 
-Engineering sequel to my PFE ([FST Al Hoceima](https://github.com/safwanov/Projet-machine-learning)), where the same use case lived in a single notebook. Here the focus is the **platform around the model**.
+Engineering sequel to my final year project, where the same use case lived in a single notebook. Here the focus is the **platform around the model**.
 
 ## Architecture
 
