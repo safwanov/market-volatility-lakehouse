@@ -36,27 +36,28 @@ make up           # Airflow UI on http://localhost:8080
 ```
 ## Results
 
-Sample output of `make run` (`data/serving.json`), test set is the last 20% of history, chronological split with a 5-day gap.
+Sample output of `make run` on 14 Oct 2026 (`data/serving.json`). Test set is the last 20% of history, chronological split with a 5-day gap. Forecasts and weights change with each run because they use the latest market data.
 
 **Forecast error (MAE on 5-day forward annualised volatility, lower is better)**
 
-| Ticker | Ridge | Random Forest | Ensemble |
-|---|---|---|---|
-| TSLA | **0.1861** | 0.1897 | 0.1873 |
-| SPY | **0.0558** | 0.0588 | 0.0563 |
+| Ticker | Ridge | Random Forest | Ensemble | Naive 5d | Naive 21d | Ensemble vs best naive |
+|---|---|---|---|---|---|---|
+| TSLA | **0.1862** | 0.1897 | 0.1874 | 0.2484 | 0.2054 | -8.8% error |
+| SPY | **0.0512** | 0.0586 | 0.0542 | 0.0661 | 0.0662 | -18.0% error |
+
+Naive baselines predict that future volatility equals the current 5-day or 21-day realised volatility.
 
 **Latest forecast and allocation (Inverse Volatility Weighting)**
 
 | Ticker | Forecast vol (5d, annualised) | Portfolio weight |
 |---|---|---|
-| TSLA | 45.4% | 16.7% |
-| SPY | 9.1% | 83.3% |
+| TSLA | 42.8% | 24.1% |
+| SPY | 13.6% | 75.9% |
 
 **Takeaways**
-
-- On this single chronological split, Ridge and Random Forest are within about 2-5% of each other (e.g. TSLA: 0.1861 vs 0.1897). That gap is too small to call a winner; it needs more tickers and several time splits.
-- Inverse-volatility weighting gives more weight to calmer assets by construction (SPY gets about 5x TSLA's weight here). This shows the allocation step works. It is not evidence that the forecasts are accurate.
-- Not yet verified: whether the models beat a naive persistence baseline (see Roadmap).
+- All models beat both naive baselines on both tickers. The ensemble cuts error by 8.8% (TSLA) and 18.0% (SPY) versus the best naive baseline.
+- Ridge is the best model on both tickers. Random Forest adds no value on these features, and the ensemble is slightly worse than Ridge alone.
+- Limitations: single chronological split (no walk-forward validation or significance test), and SPY error is still large relative to its volatility level.
 
 ## Design decisions
 
