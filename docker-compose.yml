@@ -1,0 +1,11 @@
+services:
+  airflow:
+    image: apache/airflow:2.10.3
+    command: standalone
+    ports: ["8080:8080"]
+    environment:
+      PYTHONPATH: /opt/airflow/project
+      _PIP_ADDITIONAL_REQUIREMENTS: "yfinance duckdb scikit-learn pandas pyarrow"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - .:/opt/airflow/project

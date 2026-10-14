@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Market Volatility Lakehouse</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f6fb;--card:#fff;--tx:#12141f;--mut:#5a6078;--ln:#dde1ee;--acc:#5b3df5;--code:#eef0fa;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#090a12;--card:#12141f;--tx:#eceefb;--mut:#9097b5;--ln:#262a3f;--acc:#8b78ff;--code:#0c0e18}}
+:root[data-theme="dark"]{--bg:#090a12;--card:#12141f;--tx:#eceefb;--mut:#9097b5;--ln:#262a3f;--acc:#8b78ff;--code:#0c0e18}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 "Space Grotesk",system-ui,sans-serif;background-image:radial-gradient(circle at 15% -10%,color-mix(in srgb,var(--acc) 25%,transparent),transparent 45%),radial-gradient(circle at 90% 10%,color-mix(in srgb,#0fb98b 18%,transparent),transparent 40%)}
+main{max-width:980px;margin:0 auto;padding:48px 20px 64px}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace}
+.tag{display:inline-block;padding:4px 12px;border:1px solid var(--ln);border-radius:99px;font-size:12px;color:var(--mut);background:var(--card)}
+h1{font-size:clamp(34px,7vw,68px);line-height:1.02;margin:18px 0 14px;letter-spacing:-.03em}
+h1 span{background:linear-gradient(90deg,#cd7f32,#b8c0d8,#f0c419);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--mut);max-width:640px;font-size:18px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:32px 0 48px}
+.stats div{background:var(--card);border:1px solid var(--ln);border-radius:14px;padding:14px 16px}
+.stats b{display:block;font-size:28px;color:var(--acc)}.stats small{color:var(--mut)}
+h2{font-size:22px;margin:0 0 6px}.sub{color:var(--mut);margin:0 0 18px}
+#nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+#nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid var(--ln);border-radius:12px;background:var(--card);font-size:14px;position:relative;transition:.25s}
+#nav button i{width:10px;height:10px;border-radius:50%}
+#nav button.on{border-color:var(--acc);transform:translateY(-2px);box-shadow:0 8px 24px -10px var(--acc)}
+#nav button.on i{animation:p 1.2s infinite}
+@keyframes p{0%{box-shadow:0 0 0 0 currentColor}100%{box-shadow:0 0 0 9px transparent}}
+.flow{height:3px;border-radius:3px;margin:4px 0 16px;background:repeating-linear-gradient(90deg,var(--acc) 0 14px,transparent 14px 28px);background-size:28px 3px;animation:m 1s linear infinite;opacity:.6}
+@keyframes m{to{background-position:28px 0}}
+#ins{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:22px;min-height:290px}
+#ins h3{margin:0 0 6px;font-size:20px}#ins p{margin:0 0 14px;color:var(--mut)}
+pre{margin:0;background:var(--code);border:1px solid var(--ln);border-radius:12px;padding:16px;overflow-x:auto;font:13px/1.6 "JetBrains Mono",ui-monospace,monospace}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:56px 0}
+.cols>div{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:20px}
+.cols ul{margin:10px 0 0;padding-left:18px;color:var(--mut)}
+.q li{list-style:none;margin:6px 0;padding:0}.q{padding:0!important}
+.q li::before{content:"✓ ";color:#0fb98b;font-weight:700}
+.q li{opacity:0;animation:f .5s forwards}@keyframes f{to{opacity:1}}
+.stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.links{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
+.links a{color:var(--tx);text-decoration:none;padding:12px 18px;border-radius:12px;border:1px solid var(--ln);background:var(--card);font-weight:700}
+.links a.p{background:var(--acc);color:#fff;border-color:var(--acc)}
+footer{margin-top:40px;color:var(--mut);font-size:13px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style></head><body><main>
+<span class="tag mono">● data engineering · portfolio project</span>
+<h1>Market Volatility <span>Lakehouse</span></h1>
+<p class="lead">From a single notebook to a full pipeline: ingest, model through bronze, silver and gold layers, validate with quality gates, orchestrate with Airflow, then serve volatility forecasts and portfolio weights.</p>
+<div class="stats">
+<div><b>6</b><small>pipeline stages</small></div><div><b>3</b><small>medallion layers</small></div>
+<div><b>5</b><small>quality gates</small></div><div><b>1</b><small>Airflow DAG</small></div></div>
+
+<h2>Walk through the pipeline</h2>
+<p class="sub">Click a stage to inspect the real code behind it.</p>
+<div id="nav"></div><div class="flow"></div>
+<div id="ins"><h3 id="t"></h3><p id="d"></p><pre id="c"></pre></div>
+
+<div class="cols">
+<div><h2>Quality gate</h2><p class="sub">Every check is SQL returning 0. One failure stops the DAG before serving.</p>
+<ul class="q mono" id="q" style="font-size:13px"></ul></div>
+<div><h2>From PFE to platform</h2><p class="sub">Same finance use case (TSLA / SPY), different engineering depth.</p>
+<ul><li><b>Before:</b> one notebook, five PNG charts</li><li><b>Now:</b> layered storage, SQL transforms, tests of data quality, scheduling, CI</li><li><b>Model:</b> Ridge + Random Forest with a leakage-safe chronological split</li><li><b>Output:</b> Inverse Volatility Weighting as a served artefact</li></ul>
+<div class="stack"><span class="tag mono">Python</span><span class="tag mono">DuckDB</span><span class="tag mono">Parquet</span><span class="tag mono">Airflow</span><span class="tag mono">Docker</span><span class="tag mono">scikit-learn</span><span class="tag mono">GitHub Actions</span></div></div></div>
+
+<div class="links"><a class="p" href="https://github.com/safwanov/market-volatility-lakehouse">View the repository →</a><a href="https://github.com/safwanov/Projet-machine-learning">Original PFE (ML notebook)</a><a href="https://github.com/safwanov">@safwanov</a></div>
+<footer>Built by safwanov (sazerov) · engineering sequel to the PFE at FST Al Hoceima</footer>
+</main>
+<script>
+const S=[
+{k:"Source",c:"#7c8cff",t:"Yahoo Finance API",d:"Daily OHLCV for TSLA and SPY pulled with yfinance. Orchestrated on weekdays at 22:00 UTC.",x:`df = yf.download(t, start=start, end=end,\n                 auto_adjust=False)`},
+{k:"Bronze",c:"#cd7f32",t:"Bronze: raw and append-only",d:"Untouched data written to Parquet, partitioned by ticker, stamped with ingested_at. One file per run keeps re-runs idempotent.",x:`df["ingested_at"] = pd.Timestamp.now(tz="UTC")\ndf.to_parquet(BRONZE / f"ticker={t}" / f"{end}.parquet")`},
+{k:"Silver",c:"#b8c0d8",t:"Silver: clean and deduplicated",d:"DuckDB reads the Parquet lake directly. The latest ingestion wins for each ticker and date.",x:`SELECT ticker, CAST(date AS DATE) AS date, close, volume\nFROM read_parquet('data/bronze/*/*.parquet')\nWHERE close > 0\nQUALIFY ROW_NUMBER() OVER (\n  PARTITION BY ticker, date\n  ORDER BY ingested_at DESC) = 1;`},
+{k:"Gold",c:"#f0c419",t:"Gold: ML-ready features",d:"Rolling annualised volatility with window functions, plus a forward 5-day target for supervised learning.",x:`STDDEV(ret) OVER (PARTITION BY ticker ORDER BY date\n  ROWS 20 PRECEDING) * SQRT(252) AS vol_21d,\nLEAD(vol_5d, 5) OVER (PARTITION BY ticker\n  ORDER BY date) AS target_vol_5d_fwd`},
+{k:"Quality",c:"#0fb98b",t:"Quality gate",d:"Data contracts as code. If any assertion fails the process exits non-zero and Airflow halts the run.",x:`failed = [n for n, q in CHECKS.items()\n          if con.execute(q).fetchone()[0] != 0]\nif failed: sys.exit(1)`},
+{k:"Serve",c:"#ff6b8a",t:"Forecast and allocation",d:"Ridge and Random Forest ensemble trained on a chronological split with a 5-day gap. Forecast volatility becomes inverse-volatility portfolio weights.",x:`tr, te = labelled.iloc[:cut-5], labelled.iloc[cut:]\ninv = {t: 1/v for t, v in forecast.items()}\nweights = {t: w/sum(inv.values()) for t, w in inv.items()}`}];
+const nav=document.getElementById("nav");let i=0,tm;
+function show(n){i=n;[...nav.children].forEach((b,j)=>b.classList.toggle("on",j==n));const s=S[n];
+t.textContent=s.t;d.textContent=s.d;c.textContent=s.x;nav.children[n].style.color=s.c}
+S.forEach((s,j)=>{const b=document.createElement("button");b.innerHTML=`<i style="background:${s.c}"></i>${j+1}. ${s.k}`;b.onclick=()=>{clearInterval(tm);show(j)};nav.append(b)});
+show(0);if(!matchMedia("(prefers-reduced-motion:reduce)").matches)tm=setInterval(()=>show((i+1)%S.length),4000);
+["no_duplicate_keys","no_null_measures","valid_price_range","no_extreme_returns","fresh_within_7_days"].forEach((n,j)=>{const l=document.createElement("li");l.textContent=n;l.style.animationDelay=j*.35+"s";q.append(l)});
+</script></body></html>

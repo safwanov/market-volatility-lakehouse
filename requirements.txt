@@ -1,0 +1,6 @@
+yfinance
+duckdb
+pandas
+pyarrow
+scikit-learn
+ruff
