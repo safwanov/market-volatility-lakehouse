@@ -1,6 +1,6 @@
 # Market Volatility Lakehouse
 
-> A production-style **data engineering pipeline** that ingests market data, models it through a medallion architecture, validates it with quality gates, and serves volatility forecasts and portfolio weights, orchestrated by Airflow.
+> A production-inspired **data engineering pipeline** that ingests market data, models it through a medallion architecture, validates it with quality gates, and serves volatility forecasts and portfolio weights, orchestrated by Airflow.
 
 Engineering sequel to my final year project, where the same use case lived in a single notebook. Here the focus is the **platform around the model**.
 
@@ -53,9 +53,10 @@ Sample output of `make run` (`data/serving.json`), test set is the last 20% of h
 | SPY | 9.1% | 83.3% |
 
 **Takeaways**
-- Ridge slightly beats Random Forest on both tickers, so the simple linear model is a strong baseline on these features. The ensemble sits between the two.
-- The model correctly pushes weight toward the calmer asset: SPY gets about 5x the weight of TSLA.
-- Next step: compare against a naive baseline (persistence: tomorrow's volatility equals the current 21-day volatility) to confirm the models add value.
+
+- On this single chronological split, Ridge and Random Forest are within about 2-5% of each other (e.g. TSLA: 0.1861 vs 0.1897). That gap is too small to call a winner; it needs more tickers and several time splits.
+- Inverse-volatility weighting gives more weight to calmer assets by construction (SPY gets about 5x TSLA's weight here). This shows the allocation step works. It is not evidence that the forecasts are accurate.
+- Not yet verified: whether the models beat a naive persistence baseline (see Roadmap).
 
 ## Design decisions
 
