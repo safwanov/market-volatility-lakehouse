@@ -73,7 +73,7 @@ Naive baselines predict that future volatility equals the current 5-day or 21-da
 - [ ] Incremental loads instead of full refresh
 - [ ] Dashboard on top of `serving.json`
 - [ ] Data lineage and run metadata table
-- [ ] Naive persistence baseline to benchmark the models
+- [X] Naive persistence baseline to benchmark the models
 
 ## Author
 
