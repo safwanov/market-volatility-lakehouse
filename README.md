@@ -1,4 +1,5 @@
 # Market Volatility Lakehouse
+Live walkthrough: https://safwanov.github.io/market-volatility-lakehouse/
 
 > A production-inspired **data engineering pipeline** that ingests market data, models it through a medallion architecture, validates it with quality gates, and serves volatility forecasts and portfolio weights, orchestrated by Airflow.
 
